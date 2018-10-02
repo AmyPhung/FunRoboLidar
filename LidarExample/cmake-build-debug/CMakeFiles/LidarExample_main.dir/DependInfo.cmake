@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/amy/CLionProjects/LidarExample/main.cpp" "/home/amy/CLionProjects/LidarExample/cmake-build-debug/CMakeFiles/LidarExample_main.dir/main.cpp.o"
+  "/home/amy/CLionProjects/FunRoboLidar/LidarExample/main.cpp" "/home/amy/CLionProjects/FunRoboLidar/LidarExample/cmake-build-debug/CMakeFiles/LidarExample_main.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

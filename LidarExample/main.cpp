@@ -61,10 +61,15 @@ public:
     }
 };
 
+// Global Datasets
+// Prepare data.
+int temp_max = 682;// same value as num_pts, make sure to change once a better solution is found
+std::vector<double> x(temp_max), y(temp_max);
 
 // Function Declarations
 int checkPoint(int index, int threshold, int wall_distance, std::vector<double> rangedata, std::vector<double> angledata);
 std::vector<pointCluster> clusterPoints(int max_pts, int threshold, int wall_distance, std::vector<double> rangedata, std::vector<double> angledata);
+void plotCluster(pointCluster cluster);
 
 int main(int argc, char **argv)
 {
@@ -75,6 +80,7 @@ int main(int argc, char **argv)
     unsigned int speed(0), cluster_count(1);
     bool get_intensities(false), get_new(false), verbose(false);
 
+    int test = 1;
 
 
 #if defined(WIN32)
@@ -158,9 +164,7 @@ int main(int argc, char **argv)
         int range;
 
 
-        // Prepare data.
-        std::vector<double> x(num_pts), y(num_pts), rangedata(num_pts), angledata(num_pts);
-
+        std::vector<double> rangedata(num_pts), angledata(num_pts);
 
         for (int i=wall_start; i<wall_end; i++)
         {
@@ -189,7 +193,10 @@ int main(int argc, char **argv)
         // Set the size of output image = 1200x780 pixels
         plt::figure_size(1200, 780);
         // Plot line from given x and y data. Color is selected automatically.
-        plt::plot(x, y);
+        plt::plot(x, y, "b*");
+        pointCluster c;
+        for_each(clusters.begin(), clusters.end(), plotCluster);
+
         // Set x-axis to interval [0,1000000]
         plt::xlim(0, 1000*1000);
         // Enable legend.
@@ -266,7 +273,25 @@ std::vector<pointCluster> clusterPoints(int max_pts, int threshold, int wall_dis
     return all_clusters;
 }
 
+void plotCluster(pointCluster cluster)
+{
+    std::vector<int> cluster_x(800); // arbritrarliy set max number of points in cluster
+    std::vector<int> cluster_y(800);
 
+    for (int i=cluster.start_pt; i<=cluster.end_pt; i++)
+    {
+        cluster_x.push_back(::x.at(i));//using global
+        cluster_y.push_back(::y.at(i));
+    }
+    if (cluster.type_id == 0) // Plot wall as red
+    {
+        plt::plot(cluster_x, cluster_y, "r*");
+    }
+    else // Plot objects as green
+    {
+        plt::plot(cluster_x, cluster_y, "g*");
+    }
+}
 
 
 

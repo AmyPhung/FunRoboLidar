@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/amy/CLionProjects/LidarExample/main.cpp
+/home/amy/CLionProjects/FunRoboLidar/LidarExample/main.cpp
 flexiport/flexiport.h
 -
 hokuyoaist/hokuyoaist.h
@@ -28,9 +28,9 @@ typeinfo
 cmath
 -
 matplotlibcpp.h
-/home/amy/CLionProjects/LidarExample/matplotlibcpp.h
+/home/amy/CLionProjects/FunRoboLidar/LidarExample/matplotlibcpp.h
 
-/home/amy/CLionProjects/LidarExample/matplotlibcpp.h
+/home/amy/CLionProjects/FunRoboLidar/LidarExample/matplotlibcpp.h
 vector
 -
 map
