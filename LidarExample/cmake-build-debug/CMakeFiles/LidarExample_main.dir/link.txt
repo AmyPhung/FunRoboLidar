@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/LidarExample_main.dir/main.cpp.o  -o LidarExample_main -Wl,-rpath,/usr/local/lib /usr/local/lib/libhokuyoaist.so /usr/local/lib/libflexiport.so -lpython2.7 
