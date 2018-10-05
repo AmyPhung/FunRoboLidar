@@ -1,3 +1,0 @@
-/home/amy/CLionProjects/FunRoboLidar/LidarExample/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/amy/CLionProjects/FunRoboLidar/LidarExample/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/amy/CLionProjects/FunRoboLidar/LidarExample/cmake-build-debug/CMakeFiles/LidarExample_main.dir
