@@ -15,7 +15,7 @@ using namespace cv;
 
 int main(int, char**)
 {
-    VideoCapture cap(0); // open the default camera
+    VideoCapture cap(0); // open the default camera, use 1 to open camera on benchtop
     if(!cap.isOpened())  // check if we succeeded
         return -1;
 
