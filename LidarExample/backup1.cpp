@@ -8,13 +8,6 @@
 //TODO: Find bug in code - can't accurately detect objects, maybe in logic of angle computation - flags are confirmed to work - works well for objects in middle, breaks when objects are on side
 //TODO: Clean up code + document structure
 
-//FUTURE: threshold of object (min object size to reduce noise)
-// Not dependent on midpoint
-// Not orthogonal laser
-// Real time visualization
-// Webcam
-
-
 //NOTE: Current progress: structure of saving attributes to detected features works. Can currently detect start and end point, and whether cluster is a hole or object. Need to debug to fix core function, but data is there
 
 // Use matplotlib C++ wrapper for python
@@ -148,7 +141,10 @@ int main(int argc, char **argv)
 
         // Get range data
         hokuyoaist::ScanData data;
+        laser.get_ranges(data, -1, -1, cluster_count);
 
+        std::cout << "Measured data:\n";
+        laser.get_ranges(data, -1, -1, cluster_count);
         //std::cout << data[400]; //how to get datapoints
         //std::cout << sizeof(data) << std::endl; //total datapoints in data
         int num_pts = 682; // In documentation - "Scanable steps: 682"
@@ -162,46 +158,30 @@ int main(int argc, char **argv)
         int range;
 
 
+        std::vector<double> rangedata(num_pts), angledata(num_pts);
 
-        while(true)
+        for (int i=wall_start; i<wall_end; i++)
         {
-            laser.get_ranges(data, -1, -1, cluster_count);
+            // Create laserdata dataset
+            range = data[i];
+            rangedata.at(i) = range;
 
-            //std::cout << "Measured data:\n";
-            laser.get_ranges(data, -1, -1, cluster_count);
+            // Create angledata dataset
+            angle = (i-midpoint)*res;
+            angledata.at(i) = angle;
 
+            // Save cartesian coordinates to plotting vectors
+            x.at(i) = range*sin(angle);
+            y.at(i) = range*cos(angle);
 
-            std::vector<double> rangedata(num_pts), angledata(num_pts);
-
-            for (int i=wall_start; i<wall_end; i++)
-            {
-                // Create laserdata dataset
-                range = data[i];
-                rangedata.at(i) = range;
-
-                // Create angledata dataset
-                angle = (i-midpoint)*res;
-                angledata.at(i) = angle;
-
-                // Save cartesian coordinates to plotting vectors
-                x.at(i) = range*sin(angle);
-                y.at(i) = range*cos(angle);
-
-                //std::cout << std::to_string(angledata[i]*180/3.14159) + " is:";
-
-                //std::cout << rangedata.at(i);
-            }
-
-            int max_pts = num_pts;
-            int threshold = 100; // Hardcoded test right now, change later
-            int wall_distance = rangedata[midpoint]; // uses range data from midpoint as a guess for wall distance
-            std::vector<pointCluster> clusters = clusterPoints(max_pts, threshold, wall_distance, rangedata, angledata); // Find clusters in dataset
-
-            std::cout << std::endl;
+            std::cout << std::to_string(angledata[i]*180/3.14159) + " is:";
+            std::cout << rangedata.at(i) << std::endl;
         }
 
-
-        /*
+        int max_pts = num_pts;
+        int threshold = 100; // Hardcoded test right now, change later
+        int wall_distance = rangedata[midpoint]; // uses range data from midpoint as a guess for wall distance
+        std::vector<pointCluster> clusters = clusterPoints(max_pts, threshold, wall_distance, rangedata, angledata); // Find clusters in dataset
 
         // Plot the data
         // Set the size of output image = 1200x780 pixels
@@ -221,7 +201,6 @@ int main(int argc, char **argv)
 
         // Close the laser
         laser.close();
-         */
     }
     catch(hokuyoaist::BaseError &e)
     {
@@ -265,7 +244,7 @@ std::vector<pointCluster> clusterPoints(int max_pts, int threshold, int wall_dis
                 break;
             }
             id_1 = checkPoint(i, threshold, wall_distance, rangedata, angledata);
-            std::cout << id_1;
+            std::cout << id_1 << std:: endl;
             id_2 = checkPoint(i-1, threshold, wall_distance, rangedata, angledata);
             if (id_1 != id_2)
             {
@@ -283,7 +262,7 @@ std::vector<pointCluster> clusterPoints(int max_pts, int threshold, int wall_dis
         { new_cluster.type_id = 0; }
 
         all_clusters.push_back(new_cluster); // Somehow need to save this
-        //new_cluster.print();
+        new_cluster.print();
     }
     return all_clusters;
 }

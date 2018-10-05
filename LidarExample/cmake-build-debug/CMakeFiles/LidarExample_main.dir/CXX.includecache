@@ -7,25 +7,13 @@
 #IncludeRegexTransform: 
 
 /home/amy/CLionProjects/FunRoboLidar/LidarExample/main.cpp
+iostream
+-
 flexiport/flexiport.h
 -
 hokuyoaist/hokuyoaist.h
 -
 hokuyoaist/hokuyo_errors.h
--
-iostream
--
-math.h
--
-stdio.h
--
-unistd.h
--
-vector
--
-typeinfo
--
-cmath
 -
 matplotlibcpp.h
 /home/amy/CLionProjects/FunRoboLidar/LidarExample/matplotlibcpp.h

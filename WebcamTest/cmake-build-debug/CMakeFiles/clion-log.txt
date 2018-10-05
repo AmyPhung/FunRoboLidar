@@ -1,0 +1,4 @@
+/home/amy/Downloads/clion-2018.2.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/amy/CLionProjects/WebcamTest
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/amy/CLionProjects/WebcamTest/cmake-build-debug
